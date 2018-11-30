@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/guide"
+        android:icon="@drawable/guide"
+        android:title="GUIDE" />
+
+
+    <item
+        android:id="@+id/map"
+        android:icon="@drawable/map"
+        android:title="MAP" />
+
+    <item
+        android:id="@+id/experience"
+        android:icon="@drawable/experience"
+        android:title="EXPERIENCE" />
+
+
+
+
+</menu>
