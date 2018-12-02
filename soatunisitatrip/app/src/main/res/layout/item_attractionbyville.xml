@@ -20,6 +20,24 @@
         android:src="@drawable/jam" />
 
 
+   <!-- <TextView
+        android:id="@+id/tal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="tal" />
+
+    <TextView
+        android:id="@+id/mail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="mail" />
+
+    <TextView
+        android:id="@+id/sitewe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="siteweb" />-->
+
     <TextView
         android:id="@+id/nom_attraction"
         android:layout_width="wrap_content"

@@ -1,5 +1,6 @@
 package android.mehdi.soatunisitatrip;
 
+
 public class Attraction {
     private int id ;
     private String nomAttraction;

@@ -90,8 +90,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="#25ab25"
-            app:itemIconTint="@color/color"
-            app:itemTextColor="@color/color"
+            app:itemIconTint="#ffffff"
+            app:itemTextColor="#ffffff"
             android:layout_above="@id/rv1"
             app:menu="@menu/navigation"
             tools:ignore="NotSibling">

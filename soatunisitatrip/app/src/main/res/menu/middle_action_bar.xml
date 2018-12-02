@@ -3,20 +3,16 @@
 
 
     <item
-        android:id="@+id/home"
-        android:icon="@drawable/home"
-        android:title="HOME" />
+        android:id="@+id/call"
+        android:icon="@drawable/call"
+        android:title="Appeler" />
     <item
-        android:id="@+id/search"
-        android:icon="@drawable/search"
-        android:title="SEARCH" />
+        android:id="@+id/meail"
+        android:icon="@drawable/mail"
+        android:title="Mail" />
     <item
-        android:id="@+id/favorites"
-        android:icon="@drawable/favorite"
-        android:title="FAVORITES" />
-
-
-
-
+        android:id="@+id/web"
+        android:icon="@drawable/pub"
+        android:title="SiteWeb" />
 
 </menu>

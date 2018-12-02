@@ -6,4 +6,8 @@
     <color name="color_white">#ffffff</color>
     <color name="color_transparent">#80ffffff</color>
     <color name="color_black">#000000</color>
+
+    <color name="color_vert">#25ab25</color>
+    <color name="color_vert2">#25ab25</color>
+    <color name="color_vert3">#000000</color>
 </resources>
