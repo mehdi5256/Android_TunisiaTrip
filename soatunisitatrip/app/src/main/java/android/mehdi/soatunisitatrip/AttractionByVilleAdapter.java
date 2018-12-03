@@ -21,7 +21,6 @@ public class AttractionByVilleAdapter extends RecyclerView.Adapter<AttractionByV
     private Context mContext ;
     public  List<Attraction> mVille ;
     public static int a ;
-
     public static String tel;
 
     public AttractionByVilleAdapter(Context context, List lst)

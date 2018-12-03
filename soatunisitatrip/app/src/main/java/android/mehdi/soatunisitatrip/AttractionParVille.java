@@ -23,7 +23,7 @@ public class AttractionParVille extends AppCompatActivity {
 int idville =  RecyclerViewAdapter.a;
 int id_attraction = TypeAttractionAdapter.id_attraction;
 
-    private String URL_JSON = "http://192.168.1.98/tunisiatrip/selectAttractionById.php?id1="+idville+"&id2="+id_attraction ;
+    private String URL_JSON = "http://192.168.1.6/tunisiatrip/selectAttractionById.php?id1="+idville+"&id2="+id_attraction ;
 
 
 

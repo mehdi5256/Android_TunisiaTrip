@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private String URL_JSON = "http://192.168.1.98/tunisiatrip/select.php";
+    private String URL_JSON = "http://192.168.1.6/tunisiatrip/select.php";
     private JsonArrayRequest ArrayRequest ;
     private RequestQueue requestQueue ;
     private List<Ville> lstAnime = new ArrayList<>();
