@@ -2,12 +2,21 @@
 <LinearLayout
 
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="8dp"
     android:id="@+id/containerville"
+
     android:orientation="vertical"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        android:layout_margin="2dp">
+
+
 
 
     <ImageView
@@ -24,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="-40dp"
+        android:layout_marginTop="180dp"
         android:text="MONASTIR"
 
         android:textColor="#fff"
@@ -32,5 +41,7 @@
         android:textStyle="bold|italic"
 
        />
+
+    </android.support.v7.widget.CardView>
 
 </LinearLayout>

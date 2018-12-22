@@ -7,8 +7,11 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.mehdi.soatunisitatrip.Model.User;
 import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,13 +39,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class  ExperienceActivity extends AppCompatActivity {
+
+     FloatingActionButton floatbtn;
     int idville = RecyclerViewAdapter.a;
 
     BottomNavigationView bottom;
 
 
 
-    private String URL_JSON = "http://192.168.1.6/tunisiatrip/selectexperience.php?id1=" + idville;
+    private String URL_JSON = "http://192.168.1.5/tunisiatrip/selectexperience.php?id1=" + idville;
     private JsonArrayRequest ArrayRequest;
     private RequestQueue requestQueue;
     private List<experience> lstAnime;
@@ -51,17 +56,21 @@ public class  ExperienceActivity extends AppCompatActivity {
 
     android.support.v7.widget.Toolbar toolbar;
 
-
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_experience);
         bottom = findViewById(R.id.bottom5);
+
+        floatbtn = (FloatingActionButton) findViewById(R.id.floatbtn);
+
+        floatbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ExperienceActivity.this,AddExperienceActivity.class);
+                startActivity(intent);
+            }
+        });
 
        /* TextView hello = (TextView) findViewById(R.id.textView2);
         Button btn = (Button) findViewById(R.id.button2);
@@ -75,23 +84,27 @@ public class  ExperienceActivity extends AppCompatActivity {
 
 
         bottom.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
 
                 switch (item.getItemId()) {
+
+                    case R.id.guide:
+                        Intent intent2 = new Intent(ExperienceActivity.this, MainActivity.class);
+                        startActivity(intent2);
+                        finishAffinity();
+
+                        break;
+
                     case R.id.map:
 
                         Intent intent1 = new Intent(ExperienceActivity.this, OpenStreetMap.class);
                         startActivity(intent1);
-                        finish();
                         break;
 
-                    case R.id.guide:
-                        Intent intent2 = new Intent(ExperienceActivity.this, Type_Attraction_Activity.class);
-                        startActivity(intent2);
-                        finish();
-                        break;
+
 
                     /*case R.id.guide:
                         Intent intent = new Intent(Type_Attraction_Activity.this,Type_Attraction_Activity.class);
@@ -207,10 +220,12 @@ setSupportActionBar(toolbar);
 
 /*
                         experience.getId_user().setName(jsonObject.getString("nom"));
-*/
+
+*/                      experience.setId(Integer.parseInt(jsonObject.getString("id")));
                         experience.setNom(jsonObject.getString("nom"));
-                        experience.setNom_image(jsonObject.getString("nom_image"));
+                        experience.setEmail(jsonObject.getString("email"));
                         experience.setUpload_date(jsonObject.getString("upload_date"));
+                        experience.setNom_image(jsonObject.getString("image"));
                         experience.setDescription(jsonObject.getString("description"));
 
 

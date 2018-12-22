@@ -20,6 +20,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,7 +30,7 @@ import retrofit2.Response;
 public class SignUpActivity extends AppCompatActivity {
 
     Button signin,btnAcept;
-    EditText mail1,pass,nom;
+    EditText mail1,pass,nom,reppass;
     ImageButton cnx;
     IMyAPI mService;
     CheckBox term;
@@ -35,10 +38,14 @@ public class SignUpActivity extends AppCompatActivity {
     ImageView close;
     TextView txtwelcome;
 
+    AwesomeValidation awesomeValidation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
 
         mService  = Common.getAPI();
 
@@ -49,16 +56,32 @@ public class SignUpActivity extends AppCompatActivity {
         nom=(EditText)findViewById(R.id.name);
 
         pass=(EditText)findViewById(R.id.password2);
+        reppass=(EditText)findViewById(R.id.password3);
         cnx = (ImageButton) findViewById(R.id.signup1);
+/*
         term = (CheckBox) findViewById(R.id.terms);
+*/
 
         epicDialog = new Dialog(this);
+
+
+        String regexPassword = "(?=.*[a-z])(?=.*[A-Z]).{8,}";
+        awesomeValidation.addValidation(SignUpActivity.this,R.id.name, "[a-zA-Z\\s]+",R.string.fnameerr);
+        awesomeValidation.addValidation(SignUpActivity.this,R.id.email,android.util.Patterns.EMAIL_ADDRESS,R.string.emailerr);
+        awesomeValidation.addValidation(SignUpActivity.this,R.id.password2,regexPassword,R.string.password);
+        awesomeValidation.addValidation(SignUpActivity.this,R.id.password3,R.id.password2,R.string.password1);
 
 
         cnx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+
+                if(awesomeValidation.validate())
+                {
+                    registerUser(nom.getText().toString(),mail1.getText().toString(),pass.getText().toString());
+
+                }
                 if (nom.getText().length()== 0)
                 {
 
@@ -82,12 +105,6 @@ public class SignUpActivity extends AppCompatActivity {
 
 
 
-                else{
-                    registerUser(nom.getText().toString(),mail1.getText().toString(),pass.getText().toString());
-
-                }
-
-
             }
         });
 
@@ -97,6 +114,7 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                 finish();
             }
         });
@@ -140,7 +158,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void showpositiveDialog() {
 
-        final Intent intent = new Intent(SignUpActivity.this,ExperienceActivity.class);
+        final Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
 
         SharedPreferences prefs = getSharedPreferences( "login", MODE_PRIVATE);
         final  SharedPreferences.Editor editor = prefs.edit();

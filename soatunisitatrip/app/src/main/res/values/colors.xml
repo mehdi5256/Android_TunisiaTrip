@@ -10,4 +10,19 @@
     <color name="color_vert">#25ab25</color>
     <color name="color_vert2">#25ab25</color>
     <color name="color_vert3">#000000</color>
+    <color name="PrimaryDark">#292b3b</color>
+    <color name="gralight">#fafafa</color>
+
+    <color name="start_vert">#25ab25</color>
+    <color name="end_vert">#2ed12e</color>
+    <color name="green">#ccffcc</color>
+
+
+
+
+
+
+
+
+
 </resources>

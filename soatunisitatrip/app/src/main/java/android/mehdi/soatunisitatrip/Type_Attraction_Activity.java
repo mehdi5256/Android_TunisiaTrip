@@ -13,12 +13,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,11 +34,14 @@ import java.util.List;
 
 public class Type_Attraction_Activity extends AppCompatActivity {
     BottomNavigationView bottom;
-    private String URL_JSON = "http://192.168.1.6/tunisiatrip/select_type_attraction.php";
+    private String URL_JSON = "http://192.168.1.5/tunisiatrip/select_type_attraction.php";
     private JsonArrayRequest ArrayRequest;
     private RequestQueue requestQueue;
     private List<Type_Attraction> lstAnime = new ArrayList<>();
     private RecyclerView myrv;
+    TextView temp1;
+    ImageView icontemp;
+
 
 
 
@@ -52,7 +60,11 @@ public class Type_Attraction_Activity extends AppCompatActivity {
         TextView tvname = (findViewById(R.id.collapsingtoolbar_id));
 */
         ImageView img = findViewById(R.id.image_ville1);
+
          bottom = findViewById(R.id.bottom1);
+         temp1 = (TextView)findViewById(R.id.temperature);
+        icontemp = findViewById(R.id.icontemp);
+
 
 
 
@@ -80,13 +92,11 @@ public class Type_Attraction_Activity extends AppCompatActivity {
 
                         Intent intent1 = new Intent(Type_Attraction_Activity.this, OpenStreetMap.class);
                         startActivity(intent1);
-                        Toast.makeText(Type_Attraction_Activity.this, "map", Toast.LENGTH_SHORT).show();
                         break;
 
                     case R.id.experience:
                        Intent intent2 = new Intent(Type_Attraction_Activity.this, LoginActivity.class);
                         startActivity(intent2);
-                        Toast.makeText(Type_Attraction_Activity.this, "exp", Toast.LENGTH_SHORT).show();
                         break;
 
                     /*case R.id.guide:
@@ -103,6 +113,7 @@ public class Type_Attraction_Activity extends AppCompatActivity {
 
 
                 jsoncall();
+                findweather();
 
         }
 
@@ -163,6 +174,50 @@ public class Type_Attraction_Activity extends AppCompatActivity {
         myrv.setLayoutManager(new LinearLayoutManager(this));
         myrv.setAdapter(myAdapter);
 
+        }
+
+        public  void  findweather()
+        {
+            String url2= "http://api.openweathermap.org/data/2.5/weather?lat="+String.valueOf(RecyclerViewAdapter.lat)+"&lon="+String.valueOf(RecyclerViewAdapter.longitude)+
+                    "&APPID=355d88eda3816b321cdcc61c9095610d&fbclid=IwAR3RrpRoDssWFHgyCgp-2Wu5pyWn-QTt5VoKJIJJkkUqEo3pqomDg62GcDE";
+
+            JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url2, null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+
+
+                    try {
+                        JSONObject main_object = response.getJSONObject("main");
+                        JSONArray array = response.getJSONArray("weather");
+
+
+                        JSONObject obj = array.getJSONObject(0);
+                        String icon =obj.getString("icon");
+                        String iconUrl = "http://openweathermap.org/img/w/" + icon + ".png";
+
+                        String temp = String.valueOf(main_object.getDouble("temp"));
+                        Picasso.with(Type_Attraction_Activity.this)
+                                .load(iconUrl).into(icontemp);
+
+                        double temp_int =Double.parseDouble(temp);
+                        double centi = (temp_int -273.15 );
+                        centi= Math.round(centi);
+                        int i = (int) centi;
+                        temp1.setText(String.valueOf(i+"°C"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            });
+
+            RequestQueue queue = Volley.newRequestQueue(this);
+            queue.add(jor);
         }
 
     }

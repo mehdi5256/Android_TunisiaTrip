@@ -2,6 +2,7 @@ package android.mehdi.soatunisitatrip;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -22,6 +24,10 @@ public class AttractionByVilleAdapter extends RecyclerView.Adapter<AttractionByV
     public  List<Attraction> mVille ;
     public static int a ;
     public static String tel;
+    public static float longi;
+    public static float latit;
+
+
 
     public AttractionByVilleAdapter(Context context, List lst)
     {
@@ -46,8 +52,16 @@ public class AttractionByVilleAdapter extends RecyclerView.Adapter<AttractionByV
         viewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(mContext,listeAttractionParVille.class);
 
+                longi=  mVille.get(viewHolder.getAdapterPosition()).getLongitude();
+                 latit=  mVille.get(viewHolder.getAdapterPosition()).getLatitude();
+
+
+                Toast.makeText(mContext, "long"+longi+"lat"+latit, Toast.LENGTH_SHORT).show();
+
+
+
+                Intent intent= new Intent(mContext,listeAttractionParVille.class);
                 intent.putExtra("attraction_name",mVille.get(viewHolder.getAdapterPosition()).getNomAttraction());
                 intent.putExtra("attraction_image",mVille.get(viewHolder.getAdapterPosition()).getImage());
                 intent.putExtra("attraction_description",mVille.get(viewHolder.getAdapterPosition()).getDescription());
@@ -55,6 +69,9 @@ public class AttractionByVilleAdapter extends RecyclerView.Adapter<AttractionByV
                 intent.putExtra("attraction_email",mVille.get(viewHolder.getAdapterPosition()).getMail());
                 intent.putExtra("attraction_telephone",mVille.get(viewHolder.getAdapterPosition()).getTelephone());
                 intent.putExtra("attraction_adresse",mVille.get(viewHolder.getAdapterPosition()).getAdresse());
+                intent.putExtra("attraction_latitude",mVille.get(viewHolder.getAdapterPosition()).getLatitude());
+                intent.putExtra("attraction_longitude",mVille.get(viewHolder.getAdapterPosition()).getLongitude());
+
 
                 mContext.startActivity(intent);
             }
@@ -76,12 +93,14 @@ public class AttractionByVilleAdapter extends RecyclerView.Adapter<AttractionByV
         holder.siteeweb.setText(mVille.get(position).getSiteweb());*/
         Glide.with(mContext).load(mVille.get(position).getImage()).apply(options).into(holder.imageville);
         tel = mVille.get(position).getTelephone();
-
+        longi= mVille.get(position).getLongitude();
+        latit= mVille.get(position).getLatitude();
 
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return mVille.size();
     }
 

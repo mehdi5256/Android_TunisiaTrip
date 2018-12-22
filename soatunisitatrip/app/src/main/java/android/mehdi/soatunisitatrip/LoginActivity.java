@@ -3,6 +3,7 @@ package android.mehdi.soatunisitatrip;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.mehdi.soatunisitatrip.Common.Common;
+import android.mehdi.soatunisitatrip.Common.SharedPrefManager;
 import android.mehdi.soatunisitatrip.Model.APIResponse;
 import android.mehdi.soatunisitatrip.Remote.IMyAPI;
 import android.support.v7.app.AppCompatActivity;
@@ -61,6 +62,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+
                 finish();
             }
         });
@@ -123,6 +126,13 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, result.getError_msg(), Toast.LENGTH_SHORT).show();
                         }
                         else {
+
+                            SharedPrefManager.getInstance(getApplicationContext())
+                                    .userLogin(
+                                            result.getUser().getId(),
+                                            result.getUser().getName(),
+                                            result.getUser().getEmail()
+                                    );
                             /*editor.putString("login", mail.getText().toString());
                             editor.putString("password", pass.getText().toString());
                             editor.commit();
@@ -130,6 +140,8 @@ public class LoginActivity extends AppCompatActivity {
 
                             Intent intent = new Intent(LoginActivity.this,ExperienceActivity.class);
                             startActivity(intent);
+
+
                             finish();
                         }
 

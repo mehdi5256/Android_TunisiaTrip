@@ -1,7 +1,7 @@
 package android.mehdi.soatunisitatrip.Model;
 
 public class User {
-
+    private int id ;
     private String nom;
     private String email;
     private String created_at;
@@ -49,5 +49,13 @@ public class User {
         this.email = email;
         this.created_at = created_at;
         this.updated_at = updated_at;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

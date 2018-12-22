@@ -60,11 +60,14 @@ public class experience {
     {
 
     }*/
-
+    private int id;
     private String nom;
+    private String email;
+
     private String upload_date;
     private String nom_image;
     private String description;
+
 
     public String getNom() {
         return nom;
@@ -112,5 +115,21 @@ public class experience {
         this.upload_date = upload_date;
         this.nom_image = nom_image;
         this.description = description;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

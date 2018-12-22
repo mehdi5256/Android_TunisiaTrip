@@ -57,4 +57,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 
 
+    implementation 'net.gotev:uploadservice:2.1'
+    implementation 'com.basgeekball:awesome-validation:4.2'
+
+
 }

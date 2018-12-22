@@ -168,6 +168,14 @@ public class OpenStreetMap extends AppCompatActivity implements OnMapReadyCallba
         map = mapboxMap;
         enableLocation();
         map.addOnMapClickListener(this);
+        MarkerOptions options = new MarkerOptions()
+                .position(new LatLng(36.9253,
+                        10.2803))
+                .title("Eiffel Tower");
+        map.addMarker(options);
+        DestinationPosition= Point.fromLngLat(options.getPosition().getLongitude(),options.getPosition().getLatitude());
+        OriginPosition= Point.fromLngLat(originlocation.getLongitude(),originlocation.getLatitude());
+        getRoute(OriginPosition,DestinationPosition);
 
     }
     private void enableLocation(){

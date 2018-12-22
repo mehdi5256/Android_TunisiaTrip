@@ -1,12 +1,14 @@
 package android.mehdi.soatunisitatrip;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -17,6 +19,12 @@ public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.My
     RequestOptions options ;
     private Context mContext ;
     public List<experience> mExperience ;
+    public static int id_usr ;
+    public static String  nom_usr ;
+    public static String  email_usr;
+
+
+
 
     public  ExperienceAdapter(Context context,List lst)
     {
@@ -33,13 +41,39 @@ public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.My
         View view;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
         view=mInflater.inflate(R.layout.item_experience,parent,false);
-        return new MyViewHolder(view);
+
+        final MyViewHolder viewHolder = new MyViewHolder(view);
+
+        viewHolder.image_profil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                id_usr = mExperience.get(viewHolder.getAdapterPosition()).getId();
+                nom_usr = mExperience.get(viewHolder.getAdapterPosition()).getNom();
+                email_usr = mExperience.get(viewHolder.getAdapterPosition()).getEmail();
+
+                Toast.makeText(mContext,"id_user:"+id_usr+nom_usr+email_usr, Toast.LENGTH_SHORT).show();
+
+
+                Intent intent = new Intent(mContext,UserProfilActivity.class);
+                mContext.startActivity(intent);
+
+            }
+        });
+
+
+
+
+
+        return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-
+        id_usr = mExperience.get(position).getId();
+        nom_usr = mExperience.get(position).getNom();
+        email_usr = mExperience.get(position).getEmail();
 
         holder.username.setText(mExperience.get(position).getNom());
 
@@ -63,7 +97,7 @@ public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.My
         TextView date_exp;
         TextView description_exp;
 
-        ImageView image_exp;
+        ImageView image_exp,image_profil;
 
 
 
@@ -77,7 +111,7 @@ public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.My
             description_exp=itemView.findViewById(R.id.descriptionn);
 
             image_exp=itemView.findViewById(R.id.post_image);
-
+            image_profil=itemView.findViewById(R.id.post_profil_image);
         }
     }
 }
