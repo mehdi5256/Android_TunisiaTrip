@@ -59,7 +59,7 @@ public class AdapterViewPager extends PagerAdapter {
         //imageView.setImageResource(images[position]);
         textViewnomville.setText(villes.get(position).getNomville());
         imageLoader=CustomVolleyRequest.getInstance(context).getImageLoader();
-        imageLoader.get(ville.getImage(),ImageLoader.getImageListener(imageView,R.mipmap.ic_launcher,android.R.drawable.ic_dialog_alert));
+        imageLoader.get(ville.getImage(),ImageLoader.getImageListener(imageView,R.drawable.logo_final,android.R.drawable.ic_dialog_alert));
 
        /* view.setOnClickListener(new View.OnClickListener() {
             @Override

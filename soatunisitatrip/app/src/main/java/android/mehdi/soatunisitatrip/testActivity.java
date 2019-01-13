@@ -20,7 +20,7 @@ import java.util.List;
 
 public class testActivity extends AppCompatActivity {
 
-    private String URL_JSON = "http://192.168.1.5/tunisiatrip/selectexperience.php?id1=2";
+    private String URL_JSON = "http://192.168.1.8/tunisiatrip/selectexperience.php?id1=2";
     private JsonArrayRequest ArrayRequest;
     private RequestQueue requestQueue;
     private List<experience> lstAnime;

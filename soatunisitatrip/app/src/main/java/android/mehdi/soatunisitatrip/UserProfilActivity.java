@@ -28,7 +28,7 @@ public class UserProfilActivity extends AppCompatActivity {
     String em_user= ExperienceAdapter.email_usr;
 
 
-    private String URL_JSON = "http://192.168.1.5/tunisiatrip/userprofil.php?id1="+idville+"&id2="+user_id;
+    private String URL_JSON = "http://192.168.1.8/tunisiatrip/userprofil.php?id1="+idville+"&id2="+user_id;
     private JsonArrayRequest ArrayRequest;
     private RequestQueue requestQueue;
     private List<UserProfil> lstAnime  = new ArrayList<>();

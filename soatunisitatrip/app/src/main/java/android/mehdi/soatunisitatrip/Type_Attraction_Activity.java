@@ -34,7 +34,7 @@ import java.util.List;
 
 public class Type_Attraction_Activity extends AppCompatActivity {
     BottomNavigationView bottom;
-    private String URL_JSON = "http://192.168.1.5/tunisiatrip/select_type_attraction.php";
+    private String URL_JSON = "http://192.168.1.8/tunisiatrip/select_type_attraction.php";
     private JsonArrayRequest ArrayRequest;
     private RequestQueue requestQueue;
     private List<Type_Attraction> lstAnime = new ArrayList<>();

@@ -39,7 +39,7 @@ public class AccueilActivity extends AppCompatActivity {
     List<Ville> sliderimg;
     Button decouvirir;
     Button next,prec;
-    String requestUrl="http://192.168.1.5/tunisiatrip/selectAccueil.php";
+    String requestUrl="http://192.168.1.8/tunisiatrip/selectAccueil.php";
     AdapterViewPager adapterViewPager;
 
     @Override

@@ -49,7 +49,7 @@ public class AddExperienceActivity extends AppCompatActivity {
 
      String id_u = String.valueOf(ExperienceAdapter.id_usr);
 
-    public static final String UPLOAD_URL = "http://192.168.1.5/upload.php";
+    public static final String UPLOAD_URL = "http://192.168.1.8/upload.php";
 
 
 
