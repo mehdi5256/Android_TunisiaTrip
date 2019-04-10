@@ -137,7 +137,6 @@ public class SignUpActivity extends AppCompatActivity {
                             showpositiveDialog();
 
 
-                            //Toast.makeText(SignUpActivity.this, "User CREATED" +result.getUid(), Toast.LENGTH_SHORT).show();
 
                         }
 

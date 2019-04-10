@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private String URL_JSON = "http://192.168.1.8/tunisiatrip/select.php";
+    private String URL_JSON = "http://41.226.11.252:1180/tunisiatrip/select.php";
     private JsonArrayRequest ArrayRequest ;
     private RequestQueue requestQueue ;
     private List<Ville> lstAnime = new ArrayList<>();
@@ -71,10 +71,6 @@ public class MainActivity extends AppCompatActivity {
 
                 for (int i = 0 ; i<response.length();i++) {
 
-/*
-                    Toast.makeText(getApplicationContext(),String.valueOf(i),Toast.LENGTH_SHORT).show();
-*/
-
                     try {
 
                         jsonObject = response.getJSONObject(i);
@@ -93,9 +89,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
-
-                //Toast.makeText(MainActivity.this,"Size of Liste "+String.valueOf(lstAnime.size()),Toast.LENGTH_SHORT).show();
-                //Toast.makeText(MainActivity.this,lstAnime.get(1).toString(),Toast.LENGTH_SHORT).show();
 
                 setRvadapter(lstAnime);
             }
@@ -128,13 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-   /* @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu,menu);
-        return super.onCreateOptionsMenu(menu);
 
-    }*/
    public void  showVilleDialog() {
 
        oui.setOnClickListener(new View.OnClickListener() {

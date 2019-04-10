@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -56,12 +57,8 @@ public class AttractionByVilleAdapter extends RecyclerView.Adapter<AttractionByV
                 longi=  mVille.get(viewHolder.getAdapterPosition()).getLongitude();
                  latit=  mVille.get(viewHolder.getAdapterPosition()).getLatitude();
 
-
-                Toast.makeText(mContext, "long"+longi+"lat"+latit, Toast.LENGTH_SHORT).show();
-
-
-
                 Intent intent= new Intent(mContext,listeAttractionParVille.class);
+                intent.putExtra("attraction_id",mVille.get(viewHolder.getAdapterPosition()).getId());
                 intent.putExtra("attraction_name",mVille.get(viewHolder.getAdapterPosition()).getNomAttraction());
                 intent.putExtra("attraction_image",mVille.get(viewHolder.getAdapterPosition()).getImage());
                 intent.putExtra("attraction_description",mVille.get(viewHolder.getAdapterPosition()).getDescription());
@@ -86,11 +83,10 @@ public class AttractionByVilleAdapter extends RecyclerView.Adapter<AttractionByV
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
 
+
+
         holder.tvname.setText(mVille.get(position).getNomAttraction());
         holder.tvadresse.setText(mVille.get(position).getAdresse());
-        /* holder.tel.setText(mVille.get(position).getTelephone());
-        holder.maill.setText(mVille.get(position).getMail());
-        holder.siteeweb.setText(mVille.get(position).getSiteweb());*/
         Glide.with(mContext).load(mVille.get(position).getImage()).apply(options).into(holder.imageville);
         tel = mVille.get(position).getTelephone();
         longi= mVille.get(position).getLongitude();
@@ -106,7 +102,7 @@ public class AttractionByVilleAdapter extends RecyclerView.Adapter<AttractionByV
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tvname,tvadresse,descrip,tel,maill,siteeweb;
+        TextView tvname,tvadresse;
         ImageView imageville;
         LinearLayout linearLayout;
 
@@ -117,14 +113,6 @@ public class AttractionByVilleAdapter extends RecyclerView.Adapter<AttractionByV
             tvadresse=itemView.findViewById(R.id.adresse_attraction);
             imageville=itemView.findViewById(R.id.image_attraction);
             linearLayout=itemView.findViewById(R.id.containerattraction);
-            /*descrip = itemView.findViewById(R.id.textView7);
-            tel = itemView.findViewById(R.id.tal);
-            maill = itemView.findViewById(R.id.mail);*/
-/*
-            siteeweb = itemView.findViewById(R.id.sitewe);
-*/
-
-
 
 
 

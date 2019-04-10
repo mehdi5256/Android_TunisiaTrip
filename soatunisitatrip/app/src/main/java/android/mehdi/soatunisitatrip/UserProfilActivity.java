@@ -11,6 +11,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,6 +21,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class UserProfilActivity extends AppCompatActivity {
 
 
@@ -26,21 +30,25 @@ public class UserProfilActivity extends AppCompatActivity {
     int user_id =  ExperienceAdapter.id_usr;
     String name_user = ExperienceAdapter.nom_usr;
     String em_user= ExperienceAdapter.email_usr;
+    String photo_pro = ExperienceAdapter.photo_usr;
 
 
-    private String URL_JSON = "http://192.168.1.8/tunisiatrip/userprofil.php?id1="+idville+"&id2="+user_id;
+    private String URL_JSON = "http://41.226.11.252:1180/tunisiatrip/userprofil.php?id1="+idville+"&id2="+user_id;
     private JsonArrayRequest ArrayRequest;
     private RequestQueue requestQueue;
     private List<UserProfil> lstAnime  = new ArrayList<>();
 
     private RecyclerView myrv;
      TextView nom_user,mail_user;
+     CircleImageView photoprofil1;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profil);
+
+
 /*
 00*/
 
@@ -49,14 +57,13 @@ public class UserProfilActivity extends AppCompatActivity {
         myrv = (RecyclerView) findViewById(R.id.rvuser);
         nom_user= (TextView) findViewById(R.id.nomuser) ;
         mail_user= (TextView) findViewById(R.id.mailuser);
+        photoprofil1=(CircleImageView)findViewById(R.id.photoprofil);
 
         nom_user.setText(name_user);
         mail_user.setText(em_user);
 
 
-
-
-
+        Glide.with(UserProfilActivity.this).load(photo_pro).into(photoprofil1);
 
         jsoncall();
 
@@ -73,24 +80,18 @@ public class UserProfilActivity extends AppCompatActivity {
 
                 for (int i = 0 ; i<response.length();i++) {
 
-/*
-                    Toast.makeText(getApplicationContext(),String.valueOf(i),Toast.LENGTH_SHORT).show();
-*/
 
                     try {
 
                         jsonObject = response.getJSONObject(i);
                         UserProfil experience = new UserProfil();
 
-/*
-                        experience.getId_user().setName(jsonObject.getString("nom"));
-
-*/
-
                         experience.setNom(jsonObject.getString("nom"));
                         experience.setEmail(jsonObject.getString("email"));
                         experience.setUpload_date(jsonObject.getString("upload_date"));
                         experience.setImage(jsonObject.getString("image"));
+                        experience.setPhotoprofil(jsonObject.getString("photoprofil"));
+
                         experience.setDescription(jsonObject.getString("description"));
 
 
@@ -101,9 +102,6 @@ public class UserProfilActivity extends AppCompatActivity {
                     }
                 }
 
-
-                //Toast.makeText(MainActivity.this,"Size of Liste "+String.valueOf(lstAnime.size()),Toast.LENGTH_SHORT).show();
-                //Toast.makeText(MainActivity.this,lstAnime.get(1).toString(),Toast.LENGTH_SHORT).show();
 
                 setRvadapter(lstAnime);
             }

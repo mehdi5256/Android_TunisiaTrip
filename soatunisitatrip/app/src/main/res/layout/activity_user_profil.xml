@@ -1,115 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".UserProfilActivity"
-    android:background="@color/gralight"
-    >
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="252dp">
+        android:layout_height="match_parent"
+        android:id="@+id/layout">
 
-        <LinearLayout
+
+       <ImageView
+            android:id="@+id/header_cover_image"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:background="@drawable/gradientbackground"
-            android:orientation="vertical">
+            android:layout_height="150dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="centerCrop"
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="35dp"
-                android:src="@drawable/avatar" />
+            android:src="@drawable/mel"
+            app:srcCompat="@drawable/mel" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/photoprofil"
+            android:clickable="true"
+            app:civ_border_width="3dp"
+            app:civ_border_color="#FFFFFFFF"
+
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_below="@+id/header_cover_image"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-130dp"
+            android:elevation="5dp"
+            android:padding="20dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/avatar" />
+
+        <RelativeLayout
+            android:id="@+id/profile_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/header_cover_image"
+            android:background="#E70013"
+            android:elevation="4dp"
+            android:paddingBottom="24dp">
+
+
+
 
             <TextView
                 android:id="@+id/nomuser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:text="John Doe"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="70dp"
+                android:text="Laxman Marothiya"
                 android:textColor="#fff"
-                android:textSize="21dp"
+                android:textSize="24sp"
                 android:textStyle="bold" />
 
-            <android.support.v7.widget.CardView
-                android:layout_width="300dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="20dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                        <ImageView
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/ic_email_green_24dp" />
-
-                        <TextView
-                            android:id="@+id/mailuser"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:paddingLeft="20dp"
-                            android:text="John@gmail.com"
-                            android:textSize="21dp"
-                            android:textStyle="bold" />
 
 
-                    </LinearLayout>
+            <TextView
+                android:id="@+id/mailuser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/nomuser"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="(Adhyaksh)"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+        </RelativeLayout>
 
-                </LinearLayout>
 
-
-            </android.support.v7.widget.CardView>
-
-        </LinearLayout>
-
-    </RelativeLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvuser"
-        android:layout_width="match_parent"
-        android:layout_height="303dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true">
-
-    </android.support.v7.widget.RecyclerView>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/bottom5"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:background="#25ab25"
-            app:itemIconTint="#ffffff"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/profile_layout"
+            android:layout_margin="5dp"
+            android:layout_marginTop="5dp"
+            android:background="#fff"
+            android:elevation="4dp"
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp">
 
-            app:itemTextColor="#ffffff"
-            app:menu="@menu/navigation"
-            tools:ignore="NotSibling">
 
-        </android.support.design.widget.BottomNavigationView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvuser"
+                android:layout_width="match_parent"
+                android:layout_height="303dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
+            </android.support.v7.widget.RecyclerView>
+
+
+
+
+
+
+        </android.support.constraint.ConstraintLayout>
     </RelativeLayout>
-
-</LinearLayout>
+</ScrollView>

@@ -1,22 +1,16 @@
 package android.mehdi.soatunisitatrip.Accueil;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.mehdi.soatunisitatrip.R;
-import android.mehdi.soatunisitatrip.RecyclerViewAdapter;
-import android.mehdi.soatunisitatrip.Type_Attraction_Activity;
 import android.mehdi.soatunisitatrip.Ville;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 
@@ -29,7 +23,6 @@ public class AdapterViewPager extends PagerAdapter {
     private ImageLoader imageLoader;
 
 
-    //private Integer[] images = {R.drawable.test,R.drawable.jam,R.drawable.dogga};
 
     public AdapterViewPager (List<Ville> mvilles,Context context)
     {
@@ -56,25 +49,11 @@ public class AdapterViewPager extends PagerAdapter {
         Ville ville = villes.get(position);
         TextView textViewnomville = (TextView) view.findViewById(R.id.tvtestnomville);
         ImageView imageView  = (ImageView)view.findViewById(R.id.testaccueilimg);
-        //imageView.setImageResource(images[position]);
         textViewnomville.setText(villes.get(position).getNomville());
         imageLoader=CustomVolleyRequest.getInstance(context).getImageLoader();
         imageLoader.get(ville.getImage(),ImageLoader.getImageListener(imageView,R.drawable.logo_final,android.R.drawable.ic_dialog_alert));
 
-       /* view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-
-
-                Intent intent = new Intent(context,Type_Attraction_Activity.class);
-                intent.putExtra("ville_id",villes.get(position).getId());
-                intent.putExtra("ville_name",villes.get(position).getNomville());
-                intent.putExtra("ville_image",villes.get(position).getImage());
-                context.startActivity(intent);
-
-            }
-        });*/
 
 
         ViewPager vp = (ViewPager) container;

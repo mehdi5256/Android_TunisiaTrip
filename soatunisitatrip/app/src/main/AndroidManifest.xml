@@ -27,7 +27,6 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".Type_Attraction_Activity" />
-        <activity android:name=".OpenStreetMap" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -40,15 +39,17 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".AttractionParVille" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".SignUpActivity" />
+        <activity android:name=".AttractionParVille"  />
+        <activity android:name=".LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SignUpActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".ExperienceActivity" />
         <activity android:name=".listeAttractionParVille" />
-        <activity android:name=".testActivity" />
-        <activity android:name=".AddExperienceActivity" />
+        <activity android:name=".AddExperienceActivity" android:parentActivityName=".ExperienceActivity" />
         <activity android:name=".UserProfilActivity" />
-        <activity android:name=".AccueilActivity"></activity>
+        <activity android:name=".AccueilActivity" />
+        <activity android:name=".Favoris_activity"></activity>
     </application>
 
 </manifest>

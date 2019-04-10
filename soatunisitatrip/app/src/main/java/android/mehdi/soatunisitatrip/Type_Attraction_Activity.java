@@ -34,7 +34,7 @@ import java.util.List;
 
 public class Type_Attraction_Activity extends AppCompatActivity {
     BottomNavigationView bottom;
-    private String URL_JSON = "http://192.168.1.8/tunisiatrip/select_type_attraction.php";
+    private String URL_JSON = "http://41.226.11.252:1180/tunisiatrip/select_type_attraction.php";
     private JsonArrayRequest ArrayRequest;
     private RequestQueue requestQueue;
     private List<Type_Attraction> lstAnime = new ArrayList<>();
@@ -90,8 +90,9 @@ public class Type_Attraction_Activity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.map:
 
-                        Intent intent1 = new Intent(Type_Attraction_Activity.this, OpenStreetMap.class);
+                        Intent intent1 = new Intent(Type_Attraction_Activity.this, Favoris_activity.class);
                         startActivity(intent1);
+
                         break;
 
                     case R.id.experience:
@@ -99,11 +100,12 @@ public class Type_Attraction_Activity extends AppCompatActivity {
                         startActivity(intent2);
                         break;
 
-                    /*case R.id.guide:
-                        Intent intent = new Intent(Type_Attraction_Activity.this,Type_Attraction_Activity.class);
+                    case R.id.guide:
+                        Intent intent = new Intent(Type_Attraction_Activity.this,MainActivity.class);
                         startActivity(intent);
-                        Toast.makeText(Type_Attraction_Activity.this, "guide", Toast.LENGTH_SHORT).show();
-                        break;*/
+                        finishAffinity();
+
+                    break;
 
 
                 }
@@ -151,8 +153,6 @@ public class Type_Attraction_Activity extends AppCompatActivity {
                     }
                 }
 
-                //Toast.makeText(MainActivity.this,"Size of Liste "+String.valueOf(lstAnime.size()),Toast.LENGTH_SHORT).show();
-                //Toast.makeText(MainActivity.this,lstAnime.get(1).toString(),Toast.LENGTH_SHORT).show();
 
                 setRvadapter(lstAnime);
             }

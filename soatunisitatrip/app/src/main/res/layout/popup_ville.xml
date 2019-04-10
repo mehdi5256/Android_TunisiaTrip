@@ -9,15 +9,7 @@
     android:gravity="center"
     android:layout_marginRight="5dp"
     >
-    <!--<ImageView
-        android:id="@+id/close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/close"
-        android:layout_marginTop="7dp"
-        android:layout_marginRight="7dp"
-        android:elevation="5dp"
-        android:layout_alignParentRight="true"/>-->
+
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -29,8 +21,8 @@
         android:layout_alignParentStart="true">
         <TextView
             android:id="@+id/nomup_ville"
-            android:background="#25ab25"
-            android:text="Kairouan"
+            android:background="#E70013"
+            android:text="EXPERIENCE"
             android:gravity="center|center"
             android:textSize="30dp"
             android:textStyle="bold"
@@ -84,37 +76,26 @@
                     android:textAlignment="center"
 
 
-                    android:text="Voulez vous commencer votre voyage à Kairouan?"
+                    android:text="Votre experience est ajouté avec succès !!!"
                     android:textSize="18dp"
                     android:textStyle="bold" />
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_height="wrap_content">
 
                     <Button
+
                         android:height="1dp"
-                        android:layout_weight="1"
-                        android:id="@+id/btnoui"
+                        android:id="@+id/btnoui1"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="Oui"
+                        android:text="Retour"
                         android:textColor="@color/color_white"
                         android:background="@drawable/button_oui_ville"
                         android:layout_gravity="center_horizontal"/>
-                    <Button
-                        android:layout_weight="1"
-                        android:height="1dp"
 
-                        android:id="@+id/btnnon"
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:text="Non"
-                        android:textColor="@color/color_white"
-                        android:background="@drawable/button_non_ville"
-                        android:layout_gravity="center_horizontal"/>
                 </LinearLayout>
 
 

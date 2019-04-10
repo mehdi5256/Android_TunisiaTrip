@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -38,8 +37,7 @@ public class AccueilActivity extends AppCompatActivity {
     RequestQueue rq;
     List<Ville> sliderimg;
     Button decouvirir;
-    Button next,prec;
-    String requestUrl="http://192.168.1.8/tunisiatrip/selectAccueil.php";
+    String requestUrl="http://41.226.11.252:1180/tunisiatrip/selectAccueil.php";
     AdapterViewPager adapterViewPager;
 
     @Override
@@ -48,8 +46,7 @@ public class AccueilActivity extends AppCompatActivity {
         setContentView(R.layout.activity_accueil);
 
         decouvirir=(Button) findViewById(R.id.angry_btn) ;
-        next=(Button) findViewById(R.id.next);
-        prec=(Button) findViewById(R.id.prec);
+
 
 
         rq = Volley.newRequestQueue(this);
@@ -62,19 +59,7 @@ public class AccueilActivity extends AppCompatActivity {
 
 
 
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewPager.setCurrentItem(mCurrentpage+1);
-            }
-        });
-        prec.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewPager.setCurrentItem(mCurrentpage-1);
 
-            }
-        });
         decouvirir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,32 +83,6 @@ public class AccueilActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
 
-                mCurrentpage=position;
-                if(position==0)
-                {
-                    next.setEnabled(true);
-                    prec.setEnabled(false);
-                    prec.setVisibility(View.INVISIBLE);
-                    next.setText("Suivant");
-                    prec.setText("");
-                }
-                else if (position== dots.length -1)
-                {
-                    next.setEnabled(true);
-                    prec.setEnabled(true);
-                    prec.setVisibility(View.VISIBLE);
-                    next.setText("Fin");
-                    prec.setText("Précedent");
-                }
-
-                else{
-
-                    next.setEnabled(true);
-                    prec.setEnabled(true);
-                    prec.setVisibility(View.VISIBLE);
-                    next.setText("Suivant");
-                    prec.setText("Précedent");
-                }
 
             }
 
@@ -176,9 +135,7 @@ public class AccueilActivity extends AppCompatActivity {
                         JSONObject jsonObject = response.getJSONObject(i);
                         ville.setId(Integer.parseInt(jsonObject.getString("id")));
                         ville.setImage(jsonObject.getString("image"));
-/*
-                        ville.setNomville(jsonObject.getString("name"));
-*/
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

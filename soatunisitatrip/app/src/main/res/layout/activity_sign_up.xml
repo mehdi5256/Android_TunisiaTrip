@@ -107,13 +107,6 @@
                     android:textColorHint="#606060"
                     android:textSize="14sp" />
 
-                <!--<CheckBox
-                    android:id="@+id/terms"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="20dp"
-                    android:text="Accepter nos termes et conditions" />-->
 
                 <ImageButton
                     android:id="@+id/signup1"

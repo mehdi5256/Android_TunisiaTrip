@@ -31,6 +31,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     implementation 'com.android.support:design:27.0.2'
 
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
@@ -60,5 +62,7 @@ dependencies {
     implementation 'net.gotev:uploadservice:2.1'
     implementation 'com.basgeekball:awesome-validation:4.2'
 
+    // fav Button
+    implementation 'com.github.ivbaranov:materialfavoritebutton:0.1.4'
 
 }

@@ -4,8 +4,10 @@ public class User {
     private int id ;
     private String nom;
     private String email;
+    private String photoprofil;
     private String created_at;
     private String updated_at = "";
+
 
     public String getName() {
         return nom;
@@ -13,6 +15,14 @@ public class User {
 
     public void setName(String name) {
         this.nom = name;
+    }
+
+    public String getPhotoprofil() {
+        return photoprofil;
+    }
+
+    public void setPhotoprofil(String photoprofil) {
+        this.photoprofil = photoprofil;
     }
 
     public String getEmail() {

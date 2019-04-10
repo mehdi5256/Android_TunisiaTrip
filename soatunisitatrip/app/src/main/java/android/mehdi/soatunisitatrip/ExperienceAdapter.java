@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -22,6 +21,9 @@ public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.My
     public static int id_usr ;
     public static String  nom_usr ;
     public static String  email_usr;
+    public static String name_user;
+    public static String  photo_usr;
+
 
 
 
@@ -33,12 +35,13 @@ public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.My
         options = new RequestOptions()
                 .centerCrop()
                 .placeholder(R.drawable.ic_launcher_background)
-                .error(R.drawable.ic_launcher_background);
+                .error(R.drawable.avatar);
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
+
         LayoutInflater mInflater = LayoutInflater.from(mContext);
         view=mInflater.inflate(R.layout.item_experience,parent,false);
 
@@ -51,18 +54,13 @@ public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.My
                 id_usr = mExperience.get(viewHolder.getAdapterPosition()).getId();
                 nom_usr = mExperience.get(viewHolder.getAdapterPosition()).getNom();
                 email_usr = mExperience.get(viewHolder.getAdapterPosition()).getEmail();
-
-                Toast.makeText(mContext,"id_user:"+id_usr+nom_usr+email_usr, Toast.LENGTH_SHORT).show();
-
+                photo_usr =mExperience.get(viewHolder.getAdapterPosition()).getImage_profil();
 
                 Intent intent = new Intent(mContext,UserProfilActivity.class);
                 mContext.startActivity(intent);
 
             }
         });
-
-
-
 
 
         return viewHolder;
@@ -74,6 +72,7 @@ public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.My
         id_usr = mExperience.get(position).getId();
         nom_usr = mExperience.get(position).getNom();
         email_usr = mExperience.get(position).getEmail();
+        photo_usr =mExperience.get(position).getImage_profil();
 
         holder.username.setText(mExperience.get(position).getNom());
 
@@ -81,7 +80,7 @@ public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.My
         holder.description_exp.setText(mExperience.get(position).getDescription());
 
         Glide.with(mContext).load(mExperience.get(position).getNom_image()).apply(options).into(holder.image_exp);
-
+        Glide.with(mContext).load(mExperience.get(position).getImage_profil()).apply(options).into(holder.image_profil);
 
     }
 
@@ -97,7 +96,7 @@ public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.My
         TextView date_exp;
         TextView description_exp;
 
-        ImageView image_exp,image_profil;
+        ImageView image_exp,image_profil,photoprofil;
 
 
 
@@ -112,6 +111,7 @@ public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.My
 
             image_exp=itemView.findViewById(R.id.post_image);
             image_profil=itemView.findViewById(R.id.post_profil_image);
+
         }
     }
 }

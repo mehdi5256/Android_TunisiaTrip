@@ -1,6 +1,7 @@
 package android.mehdi.soatunisitatrip;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.ViewTarget;
 
 import java.util.List;
 
@@ -19,6 +21,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
     RequestOptions options ;
     private Context mContext ;
     public List<UserProfil> mVille ;
+
 
     public UserAdapter(Context context, List lst)
     {
@@ -49,15 +52,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
+
         holder.username.setText(mVille.get(position).getNom());
         holder.date_exp.setText(mVille.get(position).getUpload_date());
         holder.description_exp.setText(mVille.get(position).getDescription());
         Glide.with(mContext).load(mVille.get(position).getImage()).apply(options).into(holder.image_exp);
-
-
-
-
-
+        Glide.with(mContext).load(mVille.get(position).getPhotoprofil()).apply(options).into(holder.image_profil);
 
     }
 
@@ -71,7 +71,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
         TextView date_exp;
         TextView description_exp;
 
-        ImageView image_exp,image_profil;
+        ImageView image_exp,image_profil,photoprofil;
 
         TextView tvname,tvmail;
 
@@ -89,7 +89,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
 
             image_exp=itemView.findViewById(R.id.post_image);
             image_profil=itemView.findViewById(R.id.post_profil_image);
-
 
 
             tvname = itemView.findViewById(R.id.nomuser);

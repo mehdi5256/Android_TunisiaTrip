@@ -1,74 +1,30 @@
 package android.mehdi.soatunisitatrip;
 
 
-import android.mehdi.soatunisitatrip.Model.User;
 
 public class experience {
 
-    /*private int id ;
-    private String descrition;
-    private String date_upload;
-    private User id_user;
-    private int id_ville;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getDescrition() {
-        return descrition;
-    }
-
-    public void setDescrition(String descrition) {
-        this.descrition = descrition;
-    }
-
-    public String getDate_upload() {
-        return date_upload;
-    }
-
-    public void setDate_upload(String date_upload) {
-        this.date_upload = date_upload;
-    }
-
-    public User getId_user() {
-        return id_user;
-    }
-
-    public void setId_user(User id_user) {
-        this.id_user = id_user;
-    }
-
-    public int getId_ville() {
-        return id_ville;
-    }
-
-    public void setId_ville(int id_ville) {
-        this.id_ville = id_ville;
-    }
-
-    public experience(String descrition, String date_upload) {
-        this.descrition = descrition;
-        this.date_upload = date_upload;
-    }
-
-    public experience()
-    {
-
-    }*/
     private int id;
     private String nom;
     private String email;
 
     private String upload_date;
     private String nom_image;
+
+
+
+    private String image_profil;
     private String description;
 
 
+    public String getImage_profil() {
+        return image_profil;
+    }
+
+    public void setImage_profil(String image_profil) {
+        this.image_profil = image_profil;
+    }
     public String getNom() {
         return nom;
     }

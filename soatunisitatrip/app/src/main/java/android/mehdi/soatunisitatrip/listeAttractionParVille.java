@@ -2,9 +2,14 @@
 package android.mehdi.soatunisitatrip;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.mehdi.soatunisitatrip.SQLite.FavoriteDbHelper;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +32,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 import com.mapbox.android.core.location.LocationEngine;
 import com.mapbox.android.core.location.LocationEngineListener;
 import com.mapbox.android.core.location.LocationEnginePriority;
@@ -63,6 +69,12 @@ import retrofit2.Response;
 
 public class listeAttractionParVille extends AppCompatActivity implements OnMapReadyCallback,LocationEngineListener,PermissionsListener,MapboxMap.OnMapClickListener {
 
+    //Button Fav Start
+    private FavoriteDbHelper favoriteDbHelper;
+    private Attraction favorite;
+    private final AppCompatActivity activity = listeAttractionParVille.this;
+    //Button Fav End
+
     MapView osm;
     MapboxMap map;
     private PermissionsManager permissionsManager;
@@ -81,13 +93,15 @@ public class listeAttractionParVille extends AppCompatActivity implements OnMapR
     int a =Integer.parseInt( AttractionByVilleAdapter.tel);
     double longitude = AttractionByVilleAdapter.longi;
     double latitude= AttractionByVilleAdapter.latit;
+
     BottomNavigationView btm;
 
     @SuppressWarnings("MissingPermission")
     @Override
     protected void onStart() {
         super.onStart();
-         //Point point= Point.fromLngLat(longitude,latitude);
+        Verfiy();
+
         if(locationEngine !=null)
         {
             locationEngine.requestLocationUpdates();
@@ -103,15 +117,9 @@ public class listeAttractionParVille extends AppCompatActivity implements OnMapR
         }
 
 
-        String nom_attraction = getIntent().getExtras().getString("attraction_name");
-        String image = getIntent().getExtras().getString("attraction_image");
-        String descrition = getIntent().getExtras().getString("attraction_description");
         String siteweb = getIntent().getExtras().getString("attraction_siteweb");
         String email = getIntent().getExtras().getString("attraction_email");
-        int telephone = getIntent().getExtras().getInt("attraction_telephone");
-        String Adresse = getIntent().getExtras().getString("attraction_adresse");
-       double latitude= getIntent().getExtras().getFloat("attraction_latitude");
-        double longitude= getIntent().getExtras().getFloat("attraction_longitude");
+
 
 
 
@@ -123,9 +131,7 @@ public class listeAttractionParVille extends AppCompatActivity implements OnMapR
         tvnom_attraction = (TextView) findViewById(R.id.tvnom);
         image_attrac = (ImageView) findViewById(R.id.imageView4);
         description_att = (TextView) findViewById(R.id.textView7);
-       /* site= (ImageView) findViewById(R.id.site);
-        mail=(ImageView) findViewById(R.id.mail);
-        teleph=(ImageView)findViewById(R.id.tele);*/
+
         adresse_att = (TextView) findViewById(R.id.textView6);
 
         precedent = (ImageView) findViewById(R.id.imageView2);
@@ -133,9 +139,13 @@ public class listeAttractionParVille extends AppCompatActivity implements OnMapR
         btm= (BottomNavigationView) findViewById(R.id.bottom1);
 
 
+
+
+
         btm.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
                 switch (item.getItemId()) {
                     case R.id.web:
                         Intent broswer = new Intent(Intent.ACTION_VIEW, Uri.parse(siteweb));
@@ -143,6 +153,7 @@ public class listeAttractionParVille extends AppCompatActivity implements OnMapR
 
                         break;
                     case R.id.call:
+
                         Intent call = new Intent(Intent.ACTION_DIAL);
                         call.setData(Uri.parse("tel:" + a));
                         startActivity(call);
@@ -235,11 +246,6 @@ public class listeAttractionParVille extends AppCompatActivity implements OnMapR
         String email = getIntent().getExtras().getString("attraction_email");
         int telephone = getIntent().getExtras().getInt("attraction_telephone");
         String Adresse = getIntent().getExtras().getString("attraction_adresse");
-      /*  Float latitude= getIntent().getExtras().getFloat("attraction_latitude");
-        Float longitude= getIntent().getExtras().getFloat("attraction_longitude");*/
-
-
-
 
 
         /*---------------------------------------------------------------------------------*/
@@ -248,14 +254,50 @@ public class listeAttractionParVille extends AppCompatActivity implements OnMapR
         tvnom_attraction = (TextView) findViewById(R.id.tvnom);
         image_attrac = (ImageView) findViewById(R.id.imageView4);
         description_att = (TextView) findViewById(R.id.textView7);
-       /* site= (ImageView) findViewById(R.id.site);
-        mail=(ImageView) findViewById(R.id.mail);
-        teleph=(ImageView)findViewById(R.id.tele);*/
+
         adresse_att = (TextView) findViewById(R.id.textView6);
 
         precedent = (ImageView) findViewById(R.id.imageView2);
 
         btm= (BottomNavigationView) findViewById(R.id.bottom1);
+
+        //**************************************************************************************************Button fav start
+
+
+        MaterialFavoriteButton materialFavoriteButtonNice =
+                (MaterialFavoriteButton) findViewById(R.id.favorite_button);
+
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        materialFavoriteButtonNice.setOnFavoriteChangeListener(
+                new MaterialFavoriteButton.OnFavoriteChangeListener(){
+                    @Override
+                    public void onFavoriteChanged(MaterialFavoriteButton buttonView, boolean favorite){
+                        if (favorite){
+                            SharedPreferences.Editor editor = getSharedPreferences("listeAttractionParVille", MODE_PRIVATE).edit();
+                            editor.putBoolean("Favorite Added", true);
+                            editor.apply();
+                            saveFavorite();
+                            Snackbar.make(buttonView, "Added to Favorite",
+                                    Snackbar.LENGTH_SHORT).show();
+                        }else{
+                            int attraction_id = getIntent().getExtras().getInt("attraction_id");// get id of attraction
+                            favoriteDbHelper = new FavoriteDbHelper(listeAttractionParVille.this);
+                            favoriteDbHelper.deleteFavorite(attraction_id);
+                            SharedPreferences.Editor editor = getSharedPreferences("listeAttractionParVille", MODE_PRIVATE).edit();
+                            editor.putBoolean("Favorite Removed", true);
+                            editor.apply();
+                            Snackbar.make(buttonView, "Removed from Favorite",
+                                    Snackbar.LENGTH_SHORT).show();
+                        }
+
+                    }
+                }
+        );
+
+
+//**************************************************************************************************Button fav end
 
 
         btm.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -268,6 +310,7 @@ public class listeAttractionParVille extends AppCompatActivity implements OnMapR
 
                         break;
                     case R.id.call:
+
                         Intent call = new Intent(Intent.ACTION_DIAL);
                         call.setData(Uri.parse("tel:" + a));
                         startActivity(call);
@@ -304,21 +347,7 @@ public class listeAttractionParVille extends AppCompatActivity implements OnMapR
         osm.onCreate(savedInstanceState);
         osm.getMapAsync(this);
 
-        /*startButton = (Button)findViewById(R.id.startButton);
 
-        startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NavigationLauncherOptions options = NavigationLauncherOptions.builder()
-                        .origin(OriginPosition)
-                        .destination(DestinationPosition)
-                        .shouldSimulateRoute(true)
-                        .build();
-                NavigationLauncher.startNavigation(listeAttractionParVille.this, options);
-
-
-            }
-        });*/
         /*------------------------------------------------------------------------------------*/
 
         tvnom_attraction.setText(nom_attraction);
@@ -485,23 +514,79 @@ public class listeAttractionParVille extends AppCompatActivity implements OnMapR
     @Override
     public void onMapClick(@NonNull LatLng point) {
 
-       /* if(destinationMarker !=null)
-        {
-            map.removeMarker(destinationMarker);
-        }*/
-/*
-        destinationMarker=map.addMarker(new MarkerOptions().position(point));
-        DestinationPosition= Point.fromLngLat(point.getLongitude(),point.getLatitude());
-        OriginPosition= Point.fromLngLat(originlocation.getLongitude(),originlocation.getLatitude());
-        getRoute(OriginPosition,DestinationPosition);*/
-        /*startButton.setEnabled(true);
-        startButton.setBackgroundResource(R.color.colorPrimary);*/
-
 
     }
 
     private void setCameraPosition(Location location){
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLongitude()),13.0));
+
+    }
+
+    public void saveFavorite(){
+        favoriteDbHelper = new FavoriteDbHelper(activity);
+        favorite = new Attraction();
+        int attraction_id = getIntent().getExtras().getInt("attraction_id");
+        String nom_attraction = getIntent().getExtras().getString("attraction_name");
+        String image = getIntent().getExtras().getString("attraction_image");
+        String descrition = getIntent().getExtras().getString("attraction_description");
+        String siteweb = getIntent().getExtras().getString("attraction_siteweb");
+        String email = getIntent().getExtras().getString("attraction_email");
+        String telephone = getIntent().getExtras().getString("attraction_telephone");
+        String Adresse = getIntent().getExtras().getString("attraction_adresse");
+
+        favorite.setId(attraction_id);
+        favorite.setNomAttraction(nom_attraction);
+        favorite.setImage(image);
+        favorite.setDescription(descrition);
+        favorite.setSiteweb(siteweb);
+        favorite.setMail(email);
+        favorite.setTelephone(telephone);
+        favorite.setAdresse(Adresse);
+
+        favoriteDbHelper.addFavorite(favorite);
+
+
+    }
+
+    public void Verfiy (){
+        favoriteDbHelper = new FavoriteDbHelper(activity);
+        favorite = new Attraction();
+        int attraction_id = getIntent().getExtras().getInt("attraction_id");
+        String nom_attraction = getIntent().getExtras().getString("attraction_name");
+        String image = getIntent().getExtras().getString("attraction_image");
+        String descrition = getIntent().getExtras().getString("attraction_description");
+        String siteweb = getIntent().getExtras().getString("attraction_siteweb");
+        String email = getIntent().getExtras().getString("attraction_email");
+        String telephone = getIntent().getExtras().getString("attraction_telephone");
+        String Adresse = getIntent().getExtras().getString("attraction_adresse");
+
+        favorite.setId(attraction_id);
+        favorite.setNomAttraction(nom_attraction);
+        favorite.setImage(image);
+        favorite.setDescription(descrition);
+        favorite.setSiteweb(siteweb);
+        favorite.setMail(email);
+        favorite.setTelephone(telephone);
+        favorite.setAdresse(Adresse);
+        MaterialFavoriteButton buttonView = (MaterialFavoriteButton) findViewById(R.id.favorite_button);
+        int s =  favoriteDbHelper.getAllFavorite().size();
+        for (int i = 0 ; i <s  ; i ++) {
+            if ( favoriteDbHelper.getAllFavorite().get(i).getId() == favorite.getId()) {
+
+                //buttonView.toggleFavorite(true);
+                buttonView.setFavorite(true);
+
+
+
+
+            }
+        }
+        if (buttonView.isFavorite()){
+            favoriteDbHelper.getAllFavorite().remove(favoriteDbHelper.getAllFavorite().size()-1);
+
+        }
+
+
 
 
     }

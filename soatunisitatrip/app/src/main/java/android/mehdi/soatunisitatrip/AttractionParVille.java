@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -22,14 +23,10 @@ public class AttractionParVille extends AppCompatActivity {
 
 int idville =  RecyclerViewAdapter.a;
 int id_attraction = TypeAttractionAdapter.id_attraction;
-
-    private String URL_JSON = "http://192.168.1.8/tunisiatrip/selectAttractionById.php?id1="+idville+"&id2="+id_attraction ;
-
+    Toolbar toolbar;
 
 
-/*
-private String URL_JSON = "http://192.168.1.6/tunisiatrip/selectAttractionById.php?id1=1&id2=1";
-*/
+    private String URL_JSON = "http://41.226.11.252:1180/tunisiatrip/selectAttractionById.php?id1="+idville+"&id2="+id_attraction ;
     private JsonArrayRequest ArrayRequest ;
     private RequestQueue requestQueue ;
     private List<Attraction> lstAttraction = new ArrayList<>();
@@ -41,6 +38,17 @@ private String URL_JSON = "http://192.168.1.6/tunisiatrip/selectAttractionById.p
         setContentView(R.layout.activity_attraction_par_ville);
 
         myrvatt= findViewById(R.id.rviewAttraction);
+
+        android.support.v7.widget.Toolbar tb = (android.support.v7.widget.Toolbar) findViewById(R.id.tb25);
+        setSupportActionBar(tb);
+        tb.setLogo(R.drawable.icon_logo1);
+        tb.setTitle("");
+        if(getSupportActionBar()!=null)
+        {
+            getSupportActionBar().setTitle("   "+RecyclerViewAdapter.nom_ville);
+            tb.setTitle("    "+RecyclerViewAdapter.nom_ville);
+        }
+
 
         jsoncall();
 
@@ -62,6 +70,7 @@ private String URL_JSON = "http://192.168.1.6/tunisiatrip/selectAttractionById.p
 
                         jsonObject = response.getJSONObject(i);
                         Attraction ville = new Attraction();
+                        ville.setId(jsonObject.getInt("id"));
                         ville.setNomAttraction(jsonObject.getString("nomattraction"));
                         ville.setImage(jsonObject.getString("image"));
                         ville.setDescription(jsonObject.getString("description"));
@@ -71,14 +80,6 @@ private String URL_JSON = "http://192.168.1.6/tunisiatrip/selectAttractionById.p
                         ville.setTelephone(jsonObject.getString("telephone"));
                         ville.setLatitude((float) jsonObject.getDouble("latitude"));
                         ville.setLongitude((float) jsonObject.getDouble("longitude"));
-
-
-
-
-
-
-
-
 
                         lstAttraction.add(ville);
                     } catch (JSONException e) {
@@ -109,76 +110,5 @@ private String URL_JSON = "http://192.168.1.6/tunisiatrip/selectAttractionById.p
         myrvatt.setAdapter(attractionByVilleAdapter);
     }
 
-   /* @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu,menu);
-        return super.onCreateOptionsMenu(menu);
 
-
-
-
-
-    }*/
 }
-
-
-
-/*
-
-ArrayRequest = new JsonArrayRequest(URL_JSON, new Response.Listener<JSONArray>() {
-@Override
-public void onResponse(JSONArray response) {
-
-        JSONObject jsonObject = null;
-
-
-        for (int i = 0 ; i<response.length();i++) {
-
-*/
-/*
-                    Toast.makeText(getApplicationContext(),String.valueOf(i),Toast.LENGTH_SHORT).show();
-*//*
-
-
-        try {
-
-        jsonObject = response.getJSONObject(i);
-        Attraction attraction = new Attraction();
-        attraction.setNomAttraction(jsonObject.getString("nomattraction"));
-        attraction.setAdresse(jsonObject.getString("adresse"));
-        attraction.setImage(jsonObject.getString("image"));
-
-        lstAttraction.add(attraction);
-        }
-        catch (JSONException e) {
-        e.printStackTrace();
-        }
-        }
-
-
-        //Toast.makeText(MainActivity.this,"Size of Liste "+String.valueOf(lstAnime.size()),Toast.LENGTH_SHORT).show();
-
-        //Toast.makeText(MainActivity.this,lstAnime.get(1).toString(),Toast.LENGTH_SHORT).show();
-
-        setRvadapter(lstAttraction);
-        }
-        }, new Response.ErrorListener() {
-@Override
-public void onErrorResponse(VolleyError error) {
-
-        }
-        });
-
-
-        requestQueue = Volley.newRequestQueue(AttractionParVille.this);
-        requestQueue.add(ArrayRequest);
-        }
-
-
-
-public void setRvadapter (List<Attraction> lst) {
-
-        AttractionByVilleAdapter myAdapter = new AttractionByVilleAdapter(this,lst) ;
-        myrvatt.setLayoutManager(new LinearLayoutManager(this));
-        myrvatt.setAdapter(myAdapter);*/

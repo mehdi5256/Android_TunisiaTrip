@@ -4,7 +4,7 @@ import android.mehdi.soatunisitatrip.Remote.IMyAPI;
 import android.mehdi.soatunisitatrip.Remote.RetrofitClient;
 
 public class Common {
-    public  static final String Base_url="http://192.168.1.8/tunisiatrip/";
+    public  static final String Base_url="http://41.226.11.252:1180/tunisiatrip/";
 
     public static IMyAPI getAPI()
     {

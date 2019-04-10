@@ -6,7 +6,16 @@ public class UserProfil {
     private String email;
     private String upload_date;
     private String image;
+    private String photoprofil;
     private String description;
+
+    public String getPhotoprofil() {
+        return photoprofil;
+    }
+
+    public void setPhotoprofil(String photoprofil) {
+        this.photoprofil = photoprofil;
+    }
 
     public String getNom() {
         return nom;

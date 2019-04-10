@@ -1,14 +1,18 @@
 package android.mehdi.soatunisitatrip;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.mehdi.soatunisitatrip.Common.SharedPrefManager;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -19,18 +23,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
 
 import net.gotev.uploadservice.MultipartUploadRequest;
 import net.gotev.uploadservice.UploadNotificationConfig;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.Base64;
+
 import java.util.Calendar;
 import java.util.UUID;
 
@@ -38,6 +38,7 @@ public class AddExperienceActivity extends AppCompatActivity {
 
     ImageView imageView;
     EditText editTextName ;
+    Button btng;
     private static final int STORAGE_PERMISSION_CODE = 4655;
     private int PICK_IMAGE_REQUEST = 1;
     private Uri filepath;
@@ -49,18 +50,34 @@ public class AddExperienceActivity extends AppCompatActivity {
 
      String id_u = String.valueOf(ExperienceAdapter.id_usr);
 
-    public static final String UPLOAD_URL = "http://192.168.1.8/upload.php";
+    public static final String UPLOAD_URL = "http://41.226.11.252:1180/tunisiatrip/upload.php";
 
-
-
+    AwesomeValidation awesomeValidation;
+    Dialog epicdialog;
+    Button btnsucces;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_experience);
 
+        android.support.v7.widget.Toolbar tb = (android.support.v7.widget.Toolbar) findViewById(R.id.tbback);
+        setSupportActionBar(tb);
+        tb.setLogo(R.drawable.icon_logo1);
+        tb.setTitle("");
+        if(getSupportActionBar()!=null)
+        {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("");
+            tb.setTitle("");
+        }
 
-        /*  Dateeeeee*/
+        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
+
+        epicdialog = new Dialog(this);
+
+
+
         Calendar calendar = Calendar.getInstance();
          year  = calendar.get(Calendar.YEAR);
          month = calendar.get(Calendar.MONTH)+1;
@@ -74,6 +91,10 @@ public class AddExperienceActivity extends AppCompatActivity {
 
         imageView = (ImageView) findViewById(R.id.imgex);
         editTextName = (EditText) findViewById(R.id.etdescription);
+        btng=(Button) findViewById(R.id.btngallery);
+
+
+        awesomeValidation.addValidation(AddExperienceActivity.this,R.id.etdescription,"[a-zA-Z\\s]+",R.string.dsesc);
 
     }
 
@@ -83,9 +104,7 @@ public class AddExperienceActivity extends AppCompatActivity {
             return;
 
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            //If the user has denied the permission previously your code will come to this block
-            //Here you can explain why you need this permission
-            //Explain here why you need this permission
+
         }
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
     }
@@ -155,16 +174,42 @@ public class AddExperienceActivity extends AppCompatActivity {
     public void saveData(View view)
 
     {
-        uploadImage();
-        Intent intent = new Intent(AddExperienceActivity.this,ExperienceActivity.class);
-        onRestart();
-        startActivity(intent);
-        finish();
-        Toast.makeText(this,id_u , Toast.LENGTH_SHORT).show();
+
+        if (imageView.getVisibility() == View.GONE){
+            Snackbar.make(view, "Upload une image",
+                    Snackbar.LENGTH_SHORT).show();
+        }else{
+
+            if(awesomeValidation.validate()) {
+                //uploadImage();
+
+              showpositiveAlert();
+            }
+        }
+
+
 
 
     }
 
+    private void showpositiveAlert() {
+        epicdialog.setContentView(R.layout.popup_ville);
+        btnsucces = (Button) epicdialog.findViewById(R.id.btnoui1);
+        btnsucces.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddExperienceActivity.this, ExperienceActivity.class);
+                onRestart();
+                startActivity(intent);
+                finishAffinity();
+
+            }
+        });
+
+        epicdialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        epicdialog.show();
+
+    }
 
 
     private void uploadImage() {
@@ -187,11 +232,14 @@ public class AddExperienceActivity extends AppCompatActivity {
                     .setMaxRetries(5)
                     .startUpload();
 
-        } catch (Exception ex) {
+        } catch (Exception Ex) {
+
+            System.out.println("MehdiError" );
 
 
         }
 
     }
+
 
 }

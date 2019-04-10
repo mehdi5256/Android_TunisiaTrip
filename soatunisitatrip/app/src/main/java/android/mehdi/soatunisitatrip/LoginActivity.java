@@ -85,19 +85,11 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Insérer un mot de passe", Toast.LENGTH_SHORT).show();
 
                 }
-                else if(cb.isChecked()){
-                    editor.putString("login",mail.getText().toString());
-                    editor.putString("password",pass.getText().toString());
-                    editor.commit();
-                    finish();
-                    authentificationUser(mail.getText().toString(),pass.getText().toString());
 
-
-                }
                 else {
 
-                    authentificationUser(mail.getText().toString(), pass.getText().toString());
-                }
+
+                    authentificationUser(mail.getText().toString(),pass.getText().toString());                }
 
             }
         });
@@ -113,14 +105,15 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<APIResponse> call, Response<APIResponse> response) {
 
-                        /*final Intent intent = new Intent(LoginActivity.this,ExperienceActivity.class);
+                        final Intent intent = new Intent(LoginActivity.this,ExperienceActivity.class);
 
                         SharedPreferences prefs = getSharedPreferences( "login", MODE_PRIVATE);
                         final  SharedPreferences.Editor editor = prefs.edit();
 
                         if(prefs.contains("login")) {
                             startActivity(intent);
-                        }*/
+                            finish();
+                        }
                         APIResponse result = response.body();
                         if(result.isError()) {
                             Toast.makeText(LoginActivity.this, result.getError_msg(), Toast.LENGTH_SHORT).show();
@@ -131,18 +124,16 @@ public class LoginActivity extends AppCompatActivity {
                                     .userLogin(
                                             result.getUser().getId(),
                                             result.getUser().getName(),
-                                            result.getUser().getEmail()
+                                            result.getUser().getEmail(),
+                                            result.getUser().getPhotoprofil ()
                                     );
-                            /*editor.putString("login", mail.getText().toString());
+                            editor.putString("login", mail.getText().toString());
                             editor.putString("password", pass.getText().toString());
                             editor.commit();
-                            startActivity(intent);*/
-
-                            Intent intent = new Intent(LoginActivity.this,ExperienceActivity.class);
                             startActivity(intent);
-
-
                             finish();
+
+
                         }
 
 

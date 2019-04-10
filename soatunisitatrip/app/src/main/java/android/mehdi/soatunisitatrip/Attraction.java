@@ -120,13 +120,6 @@ public class Attraction {
     public Attraction() {
     }
 
-    public Attraction(String nomAttraction, String image, String description, String siteweb, String mail, String telephone, String adresse) {
-        this.nomAttraction = nomAttraction;
-        this.image = image;
-        this.description = description;
-        this.siteweb = siteweb;
-        this.mail = mail;
-        this.telephone = telephone;
-        this.adresse = adresse;
-    }
+
+
 }

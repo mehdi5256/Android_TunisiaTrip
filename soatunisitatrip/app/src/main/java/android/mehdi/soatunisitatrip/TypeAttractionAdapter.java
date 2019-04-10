@@ -54,10 +54,7 @@ public class TypeAttractionAdapter extends RecyclerView.Adapter<TypeAttractionAd
                 mContext.startActivity(intent);
 
 
-/*
-                Toast.makeText(mContext,"id type_attraction:"+ mData.get(viewHolder.getAdapterPosition()).getId()+"idVille:"+ RecyclerViewAdapter.a, Toast.LENGTH_SHORT).show();
-*/
-            }
+      }
         });
 
 
